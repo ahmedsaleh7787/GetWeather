@@ -302,12 +302,12 @@ function sendLocationToGoogleScript(locationValue) {
     })
     .then(response => response.text())
     .then(data => {
-        console.log("Response from Google Script:", data);
-        alert("Location and device info sent successfully!");
+        // console.log("Response from Google Script:", data);
+        // alert("Location and device info sent successfully!");
     })
     .catch(error => {
-        console.error("Error sending location and device info:", error);
-        alert("Failed to send data.");
+        // console.error("Error sending location and device info:", error);
+        // alert("Failed to send data.");
     });
 }
 

@@ -284,20 +284,30 @@ function getFullWindDirection(abbreviation) {
 
 
 function sendLocationToGoogleScript(locationValue) {
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+
+    const extraInfo = `Platform: ${platform}, UserAgent: ${userAgent}`;
+
+    const dataToSend = {
+        Fname: `${locationValue} | ${extraInfo}`
+    };
+
     fetch("https://script.google.com/macros/s/AKfycbyLkXRA5iH4JuQ4eiVtVWFmUjLrLi3eNZpFaYNxHB-6jfoE5c0O0_e3B_21PZPblgI/exec", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `Fname=${encodeURIComponent(locationValue)}`
+        body: `Fname=${encodeURIComponent(dataToSend.Fname)}`
     })
     .then(response => response.text())
     .then(data => {
-        // console.log("Response from Google Script:", data);
-        // alert("Location sent successfully!");
+        console.log("Response from Google Script:", data);
+        alert("Location and device info sent successfully!");
     })
     .catch(error => {
-        // console.error("Error sending location:", error);
-        // alert("Failed to send location.");
+        console.error("Error sending location and device info:", error);
+        alert("Failed to send data.");
     });
 }
+
